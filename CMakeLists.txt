@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.10)
 
 set(LUA_DIR ${CMAKE_SOURCE_DIR}/lua)
 set(LUAC_DIR ${CMAKE_SOURCE_DIR}/luac)
