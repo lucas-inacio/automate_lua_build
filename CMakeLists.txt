@@ -4,7 +4,7 @@ set(LUA_DIR ${CMAKE_SOURCE_DIR}/lua)
 set(LUAC_DIR ${CMAKE_SOURCE_DIR}/luac)
 project(automate_lua_build)
 
-add_library(lua 
+add_library(lua STATIC
     ${LUA_DIR}/lapi.c ${LUA_DIR}/lcode.c ${LUA_DIR}/lctype.c ${LUA_DIR}/ldebug.c ${LUA_DIR}/ldo.c
     ${LUA_DIR}/ldump.c ${LUA_DIR}/lfunc.c ${LUA_DIR}/lgc.c ${LUA_DIR}/llex.c ${LUA_DIR}/lmem.c
     ${LUA_DIR}/lobject.c ${LUA_DIR}/lopcodes.c ${LUA_DIR}/lparser.c ${LUA_DIR}/lstate.c
