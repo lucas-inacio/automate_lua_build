@@ -2,8 +2,8 @@
 Use CMake to simplify Lua (library and interpreter) build. Lua compiler not included.
 
 ## Dependencies
-Python 3
-CMake
+- Python 3
+- CMake
 
 ## Usage
 First download latest lua release. There is a python script included. In the project's root directory run:
