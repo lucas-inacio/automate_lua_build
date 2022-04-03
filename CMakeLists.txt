@@ -1,9 +1,20 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
-set(LUA_DIR ${CMAKE_SOURCE_DIR}/lua)
-set(LUAC_DIR ${CMAKE_SOURCE_DIR}/luac)
 project(automate_lua_build)
 
+# Figure out latest lua source release
+file(DOWNLOAD https://api.github.com/repos/lua/lua/releases/latest lua_release.json)
+file(READ ${CMAKE_BINARY_DIR}/lua_release.json LUA_RELEASE_STRING)
+string(JSON LUA_SOURCE_URL GET ${LUA_RELEASE_STRING} tarball_url)
+message("Downloading latest lua release from " ${LUA_SOURCE_URL})
+
+# Download and extract lua source
+file(DOWNLOAD ${LUA_SOURCE_URL} lua_release.tar.gz)
+file(ARCHIVE_EXTRACT INPUT lua_release.tar.gz DESTINATION lua_src)
+file(GLOB LUA_SUB_DIR ${CMAKE_BINARY_DIR}/lua_src/*)
+set(LUA_DIR ${LUA_SUB_DIR})
+
+# Build lua C API library
 add_library(lua STATIC
     ${LUA_DIR}/lapi.c ${LUA_DIR}/lcode.c ${LUA_DIR}/lctype.c ${LUA_DIR}/ldebug.c ${LUA_DIR}/ldo.c
     ${LUA_DIR}/ldump.c ${LUA_DIR}/lfunc.c ${LUA_DIR}/lgc.c ${LUA_DIR}/llex.c ${LUA_DIR}/lmem.c
@@ -16,6 +27,7 @@ add_library(lua STATIC
 
 target_include_directories(lua PUBLIC ${LUA_DIR})
 
+# Build lua interpreter
 add_executable(lua-bin ${LUA_DIR}/lua.c)
 target_link_libraries(lua-bin lua)
 set_target_properties(lua-bin PROPERTIES OUTPUT_NAME lua)
