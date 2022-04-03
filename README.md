@@ -2,19 +2,16 @@
 Use CMake to simplify Lua (library and interpreter) build. Lua compiler not included.
 
 ## Dependencies
-Python 3
-CMake
+- ~~Python 3~~ No need for python since the release is obtained by cmake itself
+- CMake
 
 ## Usage
-First download latest lua release. There is a python script included. In the project's root directory run:
-```shell
-python get_lastest_lua_release.py
-```
+~~First download latest lua release. There is a python script included. In the project's root directory run:~~ No need for python anymore.
 ## Building
 ```shell
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX='<your choice>' -DCMAKE_BUILD_TYPE=Release
+cmake .. -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX='<your choice>' -DCMAKE_BUILD_TYPE=Release
 cmake --build .
 cmake --install .
 ```
